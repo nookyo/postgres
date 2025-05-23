@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Install prerequisites
         run: |
-          sudo apt install -y flex bison bison++ libicu-dev libperl-dev tcl krb5-multidev
+          sudo apt install -y flex bison libicu-dev libperl-dev tcl krb5-multidev
       - name: Checkout code
         uses: actions/checkout@v4
       - name: build
