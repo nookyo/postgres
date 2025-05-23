@@ -21,8 +21,7 @@ jobs:
           make world-bin
           echo "::endgroup::"
           echo "::group::Install"
-          sudo su
-          make install
+          sudo make install
           echo "::endgroup::"
       - name: "Upload files"
         uses: actions/upload-artifact@v4
