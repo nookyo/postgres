@@ -13,11 +13,17 @@ jobs:
         uses: actions/checkout@v4
       - name: build
         run: |
+          echo "::group::Configure"
           chmod +x ./configure
           ./configure --without-readline
+          echo "::endgroup::"
+          echo "::group::Make"
           make world-bin
+          echo "::endgroup::"
+          echo "::group::Install"
           sudo su
           make install
+          echo "::endgroup::"
       - name: "Upload files"
         uses: actions/upload-artifact@v4
         with:
