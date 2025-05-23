@@ -4,10 +4,11 @@ on:
   workflow_dispatch
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Install prerequisites
         run: |
+          sudo apt update
           sudo apt install -y flex bison libicu-dev libperl-dev tcl krb5-multidev
       - name: Checkout code
         uses: actions/checkout@v4
