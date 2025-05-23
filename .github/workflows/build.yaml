@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
       - name: build
         run: |
-          chmod +x ./configure
+          chmod +x ./configure --without-readline
           ./configure
           make world-bin
           tree .
