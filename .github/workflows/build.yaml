@@ -16,7 +16,7 @@ jobs:
           chmod +x ./configure
           ./configure --without-readline
           make world-bin
-          su
+          sudo su
           make install
       - name: "Upload files"
         uses: actions/upload-artifact@v4
