@@ -1,0 +1,21 @@
+name: build
+
+on:
+  workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install prerequisites
+        run: |
+          sudo apt install -y flex bison bison++ libicu-dev libperl-dev tcl krb5-multidev
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: build
+        run: |
+          chmod +x ./configure
+          ./configure
+          make world-bin
+          tree .
+          
+          
