@@ -28,29 +28,40 @@ RUN chmod +x ./configure && \
     make install
 
 # Stage 2 
-# FROM ubuntu:latest
+FROM ubuntu:latest AS runtime
 
-# ENV DEBIAN_FRONTEND=noninteractive
-# ENV PATH="/usr/local/bin:$PATH"
-# ENV PGDATA="/var/lib/postgresql/data"
+ENV DEBIAN_FRONTEND=noninteractive
 
-# RUN apt-get update && apt-get install -y \
-#     libicu74 \
-#     libperl5.38 \
-#     tcl \
-#     krb5-user \
-#     && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    libicu-dev \
+    libperl5.34 \
+    tcl \
+    libkrb5-3 \
+    zlib1g \
+    libssl3 \
+    libxml2 \
+    libxslt1.1 \
+    locales \
+    && rm -rf /var/lib/apt/lists/*
 
-# COPY --from=builder /build/usr/local /usr/local
+# Создаем пользователя для PostgreSQL
+RUN useradd -m -d /home/postgres postgres
 
-# VOLUME /var/lib/postgresql/data
+# Копируем установленную сборку из builder-стейджа
+COPY --from=builder /usr/local /usr/local
 
-# EXPOSE 5432
+# Создаем директорию для базы данных
+RUN mkdir -p /var/lib/postgresql/data && \
+    chown -R postgres:postgres /var/lib/postgresql
 
-# HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=3 \
-#   CMD pg_isready -U postgres || exit 1
+USER postgres
+ENV PGDATA=/var/lib/postgresql/data
 
-# CMD if [ ! -s "$PGDATA/PG_VERSION" ]; then \
-#       initdb -D "$PGDATA"; \
-#     fi && \
-#     exec postgres -D "$PGDATA"    
+# Инициализация базы
+RUN /usr/local/bin/initdb -D $PGDATA
+
+# Порт по умолчанию
+EXPOSE 5432
+
+# Команда запуска PostgreSQL
+CMD ["/usr/local/bin/postgres"]
