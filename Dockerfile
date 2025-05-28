@@ -28,29 +28,29 @@ RUN chmod +x ./configure && \
     make install
 
 # Stage 2 
-FROM ubuntu:latest
+# FROM ubuntu:latest
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV PATH="/usr/local/bin:$PATH"
-ENV PGDATA="/var/lib/postgresql/data"
+# ENV DEBIAN_FRONTEND=noninteractive
+# ENV PATH="/usr/local/bin:$PATH"
+# ENV PGDATA="/var/lib/postgresql/data"
 
-RUN apt-get update && apt-get install -y \
-    libicu74 \
-    libperl5.38 \
-    tcl \
-    krb5-user \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y \
+#     libicu74 \
+#     libperl5.38 \
+#     tcl \
+#     krb5-user \
+#     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /build/usr/local /usr/local
+# COPY --from=builder /build/usr/local /usr/local
 
-VOLUME /var/lib/postgresql/data
+# VOLUME /var/lib/postgresql/data
 
-EXPOSE 5432
+# EXPOSE 5432
 
-HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=3 \
-  CMD pg_isready -U postgres || exit 1
+# HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=3 \
+#   CMD pg_isready -U postgres || exit 1
 
-CMD if [ ! -s "$PGDATA/PG_VERSION" ]; then \
-      initdb -D "$PGDATA"; \
-    fi && \
-    exec postgres -D "$PGDATA"    
+# CMD if [ ! -s "$PGDATA/PG_VERSION" ]; then \
+#       initdb -D "$PGDATA"; \
+#     fi && \
+#     exec postgres -D "$PGDATA"    
