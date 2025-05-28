@@ -34,7 +34,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
     libicu-dev \
-    libperl5.34 \
+    perl \
     tcl \
     libkrb5-3 \
     zlib1g \
