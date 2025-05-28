@@ -44,10 +44,8 @@ RUN apt-get update && apt-get install -y \
     locales \
     && rm -rf /var/lib/apt/lists/*
 
-# Создаем пользователя для PostgreSQL
 RUN useradd -m -d /home/postgres postgres
 
-# Копируем установленную сборку из builder-стейджа
 COPY --from=builder /usr/local /usr/local
 
 # Создаем директорию для базы данных
@@ -57,11 +55,8 @@ RUN mkdir -p /var/lib/postgresql/data && \
 USER postgres
 ENV PGDATA=/var/lib/postgresql/data
 
-# Инициализация базы
 RUN /usr/local/bin/initdb -D $PGDATA
 
-# Порт по умолчанию
 EXPOSE 5432
 
-# Команда запуска PostgreSQL
 CMD ["/usr/local/bin/postgres"]
