@@ -41,7 +41,6 @@ RUN apt-get update && apt-get install -y \
     libssl3 \
     libxml2 \
     libxslt1.1 \
-    locales \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m -d /home/postgres postgres
@@ -61,4 +60,4 @@ RUN initdb -D $PGDATA
 
 EXPOSE 5432
 
-CMD ["/usr/local/bin/postgres"]
+CMD ["postgres"]
