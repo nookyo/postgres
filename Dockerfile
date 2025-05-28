@@ -59,3 +59,6 @@ RUN initdb -D $PGDATA
 EXPOSE 5432
 
 CMD ["/usr/local/bin/postgres"]
+
+HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=5 \
+  CMD pg_isready -U postgres || exit 1
