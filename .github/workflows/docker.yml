@@ -23,10 +23,8 @@ jobs:
         id: metadata
         with:
           configuration-path: .github/dev-metadata-config.yml
-          short-sha: 11
           extra-tags: ${{ github.event.inputs.tags }}
-          default-template: "{{ref-name}}-{{timestamp}}-{{github.context.sha}}"
-          # default-tag: "my_tag"
+          default-template: "{{ref-name}}-{{timestamp}}-{{github.context.short-sha}}"
           dry-run: ${{ inputs.dry-run }}
 
       - name: Docker Build
