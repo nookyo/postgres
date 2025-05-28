@@ -18,9 +18,9 @@ RUN apt-get update && apt-get install -y \
     libxslt1-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY . /app
+COPY . .
 
-WORKDIR /app
+WORKDIR /src
 
 RUN chmod +x ./configure && \
     ./configure --without-readline && \
