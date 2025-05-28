@@ -35,8 +35,8 @@ ENV PATH="/usr/local/bin:$PATH"
 ENV PGDATA="/var/lib/postgresql/data"
 
 RUN apt-get update && apt-get install -y \
-    libicu72 \
-    libperl5.34 \
+    libicu74 \
+    libperl5.38 \
     tcl \
     krb5-user \
     && rm -rf /var/lib/apt/lists/*
