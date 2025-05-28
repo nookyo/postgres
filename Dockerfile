@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     tcl \
     krb5-multidev \
     ca-certificates \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /app
