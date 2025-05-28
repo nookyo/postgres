@@ -12,6 +12,10 @@ RUN apt-get update && apt-get install -y \
     krb5-multidev \
     ca-certificates \
     pkg-config \
+    zlib1g-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxslt1-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /app
