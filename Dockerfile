@@ -53,9 +53,8 @@ RUN mkdir -p /var/lib/postgresql/data && \
     chown -R postgres:postgres /var/lib/postgresql
 
 USER postgres
-ENV PGDATA=/var/lib/postgresql/data
 
-RUN /usr/local/pgsql/bin/initdb -D $PGDATA
+RUN initdb -D $PGDATA
 
 EXPOSE 5432
 
